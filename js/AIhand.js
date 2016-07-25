@@ -19,10 +19,10 @@ var AI_hand = (function(){
 	function _compareCardsTo(index){
 		for (var i = 0; i < _hand.length; i++) {
 			if(_hand[index].isSetWith(_hand[i])){
-				_hand[index].incrementSet; // might want to be more restictive to increments
+				_hand[index].incrementSet();
 			}
 			if(_hand[index].isStraightWith(_hand[i])){
-				_hand[index].incrementStraight;
+				_hand[index].incrementStraight();
 			}
 		}
 	}

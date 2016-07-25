@@ -1,12 +1,18 @@
 var CardClass = (function(){
 
-	var Card = function(value,suit){
-		this.value = value;
-		this.suit = suit;
+	var my = {};
+
+	my.Card = function(_value,_suit){
+
+		this.getValue = function(){
+			return _value;
+		}
+
+		this.getSuit = function(){
+			return _suit;
+		}
 	}
 
-	return {
-		Card
-	};
+	return my;
 })();
 
