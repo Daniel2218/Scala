@@ -1,8 +1,18 @@
 var Hand = (function (){
 
-	var theHand = [];
+	var my = {};
+	var _theHand = [];
 
-	function Hand(cards){
-		theHand.concat(cards);
+	my.Hand = function(cards){
+		_theHand.concat(cards);
+
+		this.draw = function(card){
+			_theHand.push(card);
+		}
+		this.drop = function(){
+			
+		}
 	}
+
+	return my;
 })();

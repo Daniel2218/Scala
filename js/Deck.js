@@ -1,8 +1,9 @@
 var DeckClass = (function(){
 
+	var my = {};
 	var _cards = [];
 
-	function Deck(){
+	my.Deck = function(){
 		var suits = ["spades","hearts","clubs","diamonds"];
 		var i;
 		for (i = 0; i < 2; i++){
@@ -19,30 +20,28 @@ var DeckClass = (function(){
 		this._cards = _cards;
 		
 		_shuffle(_cards);
+
+		this.Draw = function(){
+			return _cards.pop();
+		}
 	}
 
 	var _shuffle = function(array){
-	  var currentIndex = array.length, temporaryValue, randomIndex;
+	  var _currentIndex = array.length, _tempValue, _randomIndex;
 
 	  // While there remain elements to shuffle...
-	  while (0 !== currentIndex) {
+	  while (0 !== _currentIndex) {
 
 	    // Pick a remaining element...
-	    randomIndex = Math.floor(Math.random() * currentIndex);
-	    currentIndex -= 1;
+	    _randomIndex = Math.floor(Math.random() * _currentIndex);
+	    _currentIndex -= 1;
 
 	    // And swap it with the current element.
-	    temporaryValue = array[currentIndex];
-	    array[currentIndex] = array[randomIndex];
-	    array[randomIndex] = temporaryValue;
+	    _tempValue = array[_currentIndex];
+	    array[_currentIndex] = array[_randomIndex];
+	    array[_randomIndex] = _tempValue;
 	  }
 	}
 
-	Deck.prototype.Draw = function(){
-		return _cards.pop();
-	}
-
-	return {
-		Deck
-	}
+	return my;
 })();

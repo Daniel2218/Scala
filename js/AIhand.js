@@ -1,13 +1,24 @@
 var AI_hand = (function(){
 
+	var my = {};
     var _hand = [];
 
-    function AIhand(oldHand){
+    my.AIhand = function(oldHand){
 		for (var i = 0; i < oldHand.length; i++){
 			_hand.push(new AIcard(oldHand[i].value,oldHand[i].suit,1,1));
 		}
 
 		_onHand(_hand);
+
+		this.Draw = function(card){
+			_hand.push(card);
+
+			_compareCardsTo(_hand.length - 1);	
+		}
+
+		this.Drop = function(){
+
+		}
 	} 
 
 	function _onHand(_hand){
@@ -27,17 +38,5 @@ var AI_hand = (function(){
 		}
 	}
 
-	AIhand.prototype.Draw = function(card){
-		_hand.push(card);
-
-		_compareCardsTo(_hand.length - 1);	
-	}
-
-	AIhand.prototype.Drop = function(){
-
-	}
-
-	return {
-		AIhand
-	};
+	return my;
 })();
