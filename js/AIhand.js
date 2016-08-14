@@ -2,7 +2,8 @@ var AI_hand = (function(){
 
 	var my = {};
     var _hand = [];
-
+    var _worstCard;
+   
     my.AIhand = function(oldHand){
 		for (var i = 0; i < oldHand.length; i++){
 			_hand.push(new AIcard(oldHand[i].value,oldHand[i].suit,1,1));
@@ -29,11 +30,13 @@ var AI_hand = (function(){
 
 	function _compareCardsTo(index){
 		for (var i = 0; i < _hand.length; i++) {
-			if(_hand[index].isSetWith(_hand[i])){
-				_hand[index].incrementSet();
+			if(_hand[index].isSetWith(_hand[i], _hand)){
+				_hand[index]._set.Num++;
+				_hand[index]._set.Cards.push(_hand[i]);
 			}
 			if(_hand[index].isStraightWith(_hand[i])){
-				_hand[index].incrementStraight();
+				_hand[index]._straight.Num++;
+				_hand[index]._straight.Cards.push(_hand[i]);
 			}
 		}
 	}

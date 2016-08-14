@@ -24,6 +24,10 @@ var DeckClass = (function(){
 		this.Draw = function(){
 			return _cards.pop();
 		}
+
+		this.cardsLeft = function(){
+			return _cards.length;
+		}
 	}
 
 	var _shuffle = function(array){
