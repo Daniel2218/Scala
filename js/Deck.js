@@ -22,8 +22,18 @@ var Deck = (function(){
 				}
 			}
 		}
+<<<<<<< HEAD
 				
 		_shuffle(my.Cards);
+=======
+		this._cards = _cards;
+		
+		_shuffle(_cards);
+
+		this.Draw = function(){
+			return _cards.pop();
+		}
+>>>>>>> parent of 886c401... small changes
 	}
 
 	var _shuffle = function(array){

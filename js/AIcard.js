@@ -1,4 +1,4 @@
-var AIcard = (function(Deck){
+var AIcardClass = (function(Deck){
 
 	var my = {}, key;
 
@@ -8,9 +8,9 @@ var AIcard = (function(Deck){
 		}
 	}
 
-	my.Build = function(_value,_suit){
+	my.AIcard = function(_value,_suit){
 		CardClass.Card.call(this, _value, _suit);
-		console.log(this);
+		
 		this._set = {
 			Cards : [],
 			Prob : 0,
