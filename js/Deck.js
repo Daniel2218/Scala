@@ -1,33 +1,29 @@
-var DeckClass = (function(){
+var Deck = (function(){
 
 	var my = {};
-	var _cards = [];
 
-	my.Deck = function(){
+	my.Cards = [];
+
+	my.CardsLeft = function (){
+		return my.Cards.length;
+	}
+
+	my.Build = function(){
 		var suits = ["spades","hearts","clubs","diamonds"];
 		var i;
 		for (i = 0; i < 2; i++){
 			for(j = 1; j <= 13; j++){
 				for (var k = 0; k < suits.length;k++){
 					if(j > 10){
-						_cards.push(new CardClass.Card(10,suits[k]));
+						my.Cards.push(new CardClass.Card(10,suits[k]));
 					} else {
-						_cards.push(new CardClass.Card(j,suits[k]));			
+						my.Cards.push(new CardClass.Card(j,suits[k]));			
 					}	
 				}
 			}
 		}
-		this._cards = _cards;
-		
-		_shuffle(_cards);
-
-		this.Draw = function(){
-			return _cards.pop();
-		}
-
-		this.cardsLeft = function(){
-			return _cards.length;
-		}
+				
+		_shuffle(my.Cards);
 	}
 
 	var _shuffle = function(array){
@@ -46,6 +42,8 @@ var DeckClass = (function(){
 	    array[_randomIndex] = _tempValue;
 	  }
 	}
+
+	
 
 	return my;
 })();

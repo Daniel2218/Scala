@@ -1,16 +1,16 @@
-var AIcardClass = (function(Card){
+var AIcard = (function(Deck){
 
 	var my = {}, key;
 
-	for (key in Card){
-		if(Card.hasOwnProperty(key)){
-			my[key] = Card[key];
+	for (key in Deck){
+		if(Deck.hasOwnProperty(key)){
+			my[key] = Deck[key];
 		}
 	}
 
-	my.AIcard = function(_value,_suit){
+	my.Build = function(_value,_suit){
 		CardClass.Card.call(this, _value, _suit);
-
+		console.log(this);
 		this._set = {
 			Cards : [],
 			Prob : 0,
@@ -54,18 +54,17 @@ var AIcardClass = (function(Card){
 						}
 			 		}
 			 	}
-			} 
-			console.log("tyadafafe");
+			}
 			return false;
 		}
 		this.Up = function(){
 			if(this.getValue() > 13){
 				return false;
 			}
-			return new Card.Card(this.getValue()+1, this.getSuit());
+			return new CardClass.Card(this.getValue()+1, this.getSuit());
 		}
 		this.Down = function(){
-			if(ifAce()){
+			if(this.ifAce()){
 				return false;
 			}
 			return new CardClass.Card(this.getValue()-1, this.getSuit());
@@ -74,7 +73,7 @@ var AIcardClass = (function(Card){
 			var result = 1;
 			var lengthOfset = this._set.Cards.length;
 			for (var i = 0; i < (3 - lengthOfset); i++) {
-				result *= (8 - (lengthOfset + i)*2)/(deck.cardsLeft - i);
+				result *= (8 - (lengthOfset + i)*2)/(my.CardsLeft - i);
 			}
 			this._set.Prob = result;
 		}
@@ -82,11 +81,11 @@ var AIcardClass = (function(Card){
 			var result = 1;
 			var lengthOfstraight = this._straight.Cards.length;
 			for (var i = 0; i < (3 - lengthOfstraight); i++) {
-				result *= (4 - 2*this.ifAce())/(deck.cardsLeft - i);
+				result *= (4 - 2*this.ifAce())/(my.CardsLeft - i);
 			}
 			this._straight.Prob = result;
 		}	
-		function ifAce() {
+		this.ifAce = function(){
 			var length = this._straight.Cards.length;
 			for (var i = 0; i < length; i++) {
 				if (_straight.Cards[i].getValue() == 1){
@@ -104,4 +103,4 @@ var AIcardClass = (function(Card){
 	
 	return my;
 
-})(CardClass);
+})(Deck);
