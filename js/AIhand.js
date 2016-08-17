@@ -1,20 +1,20 @@
 var AIhand = (function(AIcardClass){
 
 	var my = {};
-    var _hand = [];
+    my._hand = [];
     var _worstCard;
    
     my.Build = function(arr){
 		for (var i = 0; i < arr.length; i++){
-			_hand.push(new AIcardClass.AIcard(arr[i].value,arr[i].suit,1,1));
+			my._hand.push(new AIcardClass.AIcard(arr[i].getValue(),arr[i].getSuit(),1,1));
 		}
 
-		_onHand(_hand);
+		_onHand(my._hand);
 
 		this.Draw = function(card){
-			_hand.push(card);
+			my._hand.push(card);
 
-			_compareCardsTo(_hand.length - 1);	
+			_compareCardsTo(my._hand.length - 1);	
 		}
 
 		this.Drop = function(){
@@ -29,19 +29,30 @@ var AIhand = (function(AIcardClass){
 	}
 
 	function _compareCardsTo(index){
-		for (var i = 0; i < _hand.length; i++) {
-			if(_hand[index].isSetWith(_hand[i])){
-				_hand[index]._set.Num++;
-				_hand[index]._set.Cards.push(_hand[i]);
-				_hand[index]._set.setProb();
+		for (var i = 0; i < my._hand.length; i++) {
+			if(my._hand[index].isSetWith(my._hand[i])){
+				my._hand[index]._set.Num++;
+				my._hand[index]._set.Cards.push(my._hand[i]);
+				my._hand[index].setProb();
 			}
-			if(_hand[index].isStraightWith(_hand[i])){
-				_hand[index]._straight.Num++;
-				_hand[index]._straight.Cards.push(_hand[i]);
-				_hand[index]._set.setStraightProb();
+			if(my._hand[index].isStraightWith(my._hand[i], my._hand)){
+				my._hand[index]._straight.Num++;
+				my._hand[index]._straight.Cards.push(my._hand[i]);
+				my._hand[index].setStraightProb();
+				//console.log(my._hand[index].getSuit() + my._hand[index].getValue());
+			}
+		}
+
+		for (var i = 0; i < my._hand.length; i++) {
+			for(var k = 0; k < my._hand[i]._set.Num; k++){
+				console.log(my._hand[index]._set.Cards[k].getSuit() + 
+					my._hand[index]._set.Cards[k].getValue());
 			}
 		}
 	}
 
+	function _worstCard(){
+
+	}
 	return my;
 })(AIcardClass);

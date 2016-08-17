@@ -11,6 +11,10 @@ var CardClass = (function(){
 		this.getSuit = function(){
 			return _suit;
 		}
+
+		this.equals = function(otherCard){
+			return (this.getValue() == otherCard.getValue() && this.getSuit() == otherCard.getSuit());
+		}
 	}
 
 	return my;

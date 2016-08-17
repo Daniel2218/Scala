@@ -11,6 +11,7 @@ var AIcardClass = (function(Deck){
 	my.AIcard = function(_value,_suit){
 		CardClass.Card.call(this, _value, _suit);
 		
+		// test nameing convention
 		this._set = {
 			Cards : [],
 			Prob : 0,
@@ -43,7 +44,7 @@ var AIcardClass = (function(Deck){
 			 			if(typeof newCard == "object"){
 				 			return found = (function (){
 								for (var j = 0; j < hand.length; j++) {
-					 				if(newCard.equals(hand[j])){
+									if(newCard.equals(hand[j])){
 					 					return true;
 					 				}
 					 			}
@@ -73,7 +74,7 @@ var AIcardClass = (function(Deck){
 			var result = 1;
 			var lengthOfset = this._set.Cards.length;
 			for (var i = 0; i < (3 - lengthOfset); i++) {
-				result *= (8 - (lengthOfset + i)*2)/(my.CardsLeft - i);
+				result *= (8 - (lengthOfset + i)*2)/(my.CardsLeft() - i);
 			}
 			this._set.Prob = result;
 		}
@@ -81,22 +82,18 @@ var AIcardClass = (function(Deck){
 			var result = 1;
 			var lengthOfstraight = this._straight.Cards.length;
 			for (var i = 0; i < (3 - lengthOfstraight); i++) {
-				result *= (4 - 2*this.ifAce())/(my.CardsLeft - i);
+				result *= (4 - 2*this.ifAce())/(my.CardsLeft() - i);
 			}
 			this._straight.Prob = result;
 		}	
 		this.ifAce = function(){
-			var length = this._straight.Cards.length;
-			for (var i = 0; i < length; i++) {
-				if (_straight.Cards[i].getValue() == 1){
+			var len = this._straight.Cards.length;
+			for (var i = 0; i < len; i++) {
+				if (this._straight.Cards[i].getValue() == 1){
 					return true;
 				}
 			}
 			return false;
-		}
-
-		this.equals = function(otherCard){
-			return (this.getValue() == otherCard.getValue() && this.getSuit() == otherCard.getSuit());
 		}
 	}
 
