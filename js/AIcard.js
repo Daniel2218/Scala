@@ -13,19 +13,27 @@ var AIcardClass = (function(Deck){
 		
 		// test nameing convention
 		this._set = {
-			Cards : [],
+			Cards : [this],
 			Prob : 0,
 			Num : 0
 		}
 
 		this._straight = {
-			Cards : [],
+			Cards : [this],
 			Prob : 0,
 			Num : 0
 		}	
 		
 		this.isSetWith = function(otherCard){
-			return (this.getValue() == otherCard.getValue() && this.getSuit() != otherCard.getSuit());
+			if(this.getValue() == otherCard.getValue() && this.getSuit() != otherCard.getSuit()){
+				for(var i = 0; i < this._set.Cards.length; i++){
+					if(otherCard.getSuit() == this._set.Cards[i].getSuit()){
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
 		}
 
 		this.isStraightWith = function(otherCard, hand){

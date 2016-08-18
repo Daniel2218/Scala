@@ -2,7 +2,7 @@ var Deck = (function(){
 
 	var my = {};
 
-	my.Cards = [];s
+	my.Cards = [];
 
 	my.CardsLeft = function (){
 		return my.Cards.length;
