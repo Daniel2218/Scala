@@ -26,15 +26,14 @@ var AIhand = (function(AIcardClass){
 	function _onHand(_hand){
 		for (var j = 0; j < _hand.length; j++) {	
 			_compareCardsTo(j);
-			_hand[index].setProb();
-			_hand[index].setStraightProb();
-			checkCards.push(my._hand[j]);
 		}
 	}
 
 	function _compareCardsTo(index){
 		for (var i = 0; i < my._hand.length; i++) {
-			if(!_isDuplicate(my._hand[index])){
+			var isDup = _isDuplicate(my._hand[index]); 
+			
+			if(!isDup){ // this is wrong how do i get two of straight with this
 				if(my._hand[index].isSetWith(my._hand[i])){
 					my._hand[index]._set.Num++;
 					my._hand[index]._set.Cards.push(my._hand[i]);	
@@ -45,15 +44,20 @@ var AIhand = (function(AIcardClass){
 				}
 			}
 		}
+
+		my._hand[index].setProb(checkCards, isDup);
+		my._hand[index].setStraightProb();
+		checkCards.push(my._hand[index]);
 	}
 
 	function _isDuplicate(card){
 		for(var i = 0; i < checkCards.length; i++){
 			if(card.getValue() == checkCards[i].getValue() && card.getSuit() == checkCards[i].getSuit()){
-				return true;
+				return checkCards[i];
 			}
 		}
-		return false;
+		return null;
 	}
+
 	return my;
 })(AIcardClass);

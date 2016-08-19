@@ -19,7 +19,7 @@ var AIcardClass = (function(Deck){
 		}
 
 		this._straight = {
-			Cards : [this],
+			Cards : [],
 			Prob : 0,
 			Num : 0
 		}	
@@ -78,18 +78,31 @@ var AIcardClass = (function(Deck){
 			}
 			return new CardClass.Card(this.getValue()-1, this.getSuit());
 		}
-		this.setProb = function(){
+		this.setProb = function(checkCards,isDup){
 			var result = 1;
 			var lengthOfset = this._set.Cards.length;
-			for (var i = 0; i < (3 - lengthOfset); i++) {
-				result *= (8 - (lengthOfset + i)*2)/(my.CardsLeft() - i);
+			var thisCard = this;
+
+			var anyInHand = (function () {
+				if(isDup){
+					for(var j = 0; j < checkCards.length; j++){
+						if(checkCards[j].equals(thisCard)){
+							return checkCards[j]._set.Cards.length;
+						}
+					}
+				}
+				return 0;
+			})();
+			
+			for (var i = 0; i < (4 - lengthOfset); i++) {
+				result *= (8 - anyInHand - (lengthOfset + i)*2)/(my.CardsLeft() - i);
 			}
 			this._set.Prob = result;
 		}
 		this.setStraightProb = function(){
 			var result = 1;
 			var lengthOfstraight = this._straight.Cards.length;
-			for (var i = 0; i < (3 - lengthOfstraight); i++) {
+			for (var i = 0; i < (4 - lengthOfstraight); i++) {
 				result *= (4 - 2*this.ifAce())/(my.CardsLeft() - i);
 			}
 			this._straight.Prob = result;
