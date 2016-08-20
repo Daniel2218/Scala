@@ -7,7 +7,7 @@ var AIhand = (function(AIcardClass){
 
     my.Build = function(arr){
 		for (var i = 0; i < arr.length; i++){
-			my._hand.push(new AIcardClass.AIcard(arr[i].getValue(),arr[i].getSuit(),1,1));
+			my._hand.push(new AIcardClass.AIcard(arr[i].getValue(),arr[i].getSuit(),i));
 		}
 
 		_onHand(my._hand);
@@ -30,10 +30,11 @@ var AIhand = (function(AIcardClass){
 	}
 
 	function _compareCardsTo(index){
-		for (var i = 0; i < my._hand.length; i++) {
-			var isDup = _isDuplicate(my._hand[index]); 
-			
-			if(!isDup){ // this is wrong how do i get two of straight with this
+		var orginals = my.isDuplicate(my._hand[index]); 
+
+		if(orginals == null || findInOrginals(orginals, i)){ 
+
+			for (var i = 0; i < my._hand.length; i++) {			
 				if(my._hand[index].isSetWith(my._hand[i])){
 					my._hand[index]._set.Num++;
 					my._hand[index]._set.Cards.push(my._hand[i]);	
@@ -42,21 +43,39 @@ var AIhand = (function(AIcardClass){
 					my._hand[index]._straight.Num++;
 					my._hand[index]._straight.Cards.push(my._hand[i]);		
 				}
+				
 			}
 		}
-
-		my._hand[index].setProb(checkCards, isDup);
+		// FIX THIS
+		my._hand[index].setProb(checkCards, orginals);
 		my._hand[index].setStraightProb();
 		checkCards.push(my._hand[index]);
 	}
 
-	function _isDuplicate(card){
-		for(var i = 0; i < checkCards.length; i++){
-			if(card.getValue() == checkCards[i].getValue() && card.getSuit() == checkCards[i].getSuit()){
-				return checkCards[i];
+	function findInOrginals(orginals, val){
+		for(var i = 0; i < orginals.length; i++){
+			var len = orginals[i]._set.Cards.length;
+
+			for(var j = 0; j < len; j++){
+				if(orginals[i]._set.Cards[j]._id == val){
+					return false;
+				}
 			}
 		}
-		return null;
+		return true;
+	}
+
+	my.isDuplicate = function(card){
+		var list = [];
+		for(var i = 0; i < checkCards.length; i++){
+			if(card.getValue() == checkCards[i].getValue() && card.getSuit() == checkCards[i].getSuit()){
+				list.push(checkCards[i]);
+			}
+		}
+		if(list.length == 0){
+			return null;
+		} 
+		return list;
 	}
 
 	return my;

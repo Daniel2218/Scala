@@ -1,2 +1,1 @@
-Class inheritance
-variable privitizations
+consider adding logic class

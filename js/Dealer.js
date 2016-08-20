@@ -12,28 +12,28 @@
 	// }
 
 	arr.push(
-		new AIcardClass.AIcard(7,"spades"),
-		new AIcardClass.AIcard(6,"clubs"),
-		new AIcardClass.AIcard(4,"hearts"),
-		new AIcardClass.AIcard(10,"diamonds"),
-		new AIcardClass.AIcard(7,"diamonds"),
-		new AIcardClass.AIcard(10,"clubs"),
-		new AIcardClass.AIcard(8,"diamonds"),
-		new AIcardClass.AIcard(1,"clubs"),
-		new AIcardClass.AIcard(5,"hearts"),
-		new AIcardClass.AIcard(10,"diamonds"),
-		new AIcardClass.AIcard(9,"hearts"),
-		new AIcardClass.AIcard(9,"diamonds"),
-		new AIcardClass.AIcard(7,"clubs")
+		new AIcardClass.AIcard(10,"spades"),
+		new AIcardClass.AIcard(10,"spades"),
+		new AIcardClass.AIcard(10,"diamonds")
+	 	// new AIcardClass.AIcard(10,"diamonds"),
+	// 	new AIcardClass.AIcard(7,"diamonds"),
+	// 	new AIcardClass.AIcard(10,"clubs"),
+	// 	new AIcardClass.AIcard(8,"diamonds"),
+	// 	new AIcardClass.AIcard(1,"clubs"),
+	// 	new AIcardClass.AIcard(5,"hearts"),
+	// 	new AIcardClass.AIcard(10,"diamonds"),
+	// 	new AIcardClass.AIcard(9,"hearts"),
+	// 	new AIcardClass.AIcard(9,"diamonds"),
+	// 	new AIcardClass.AIcard(7,"clubs")
 	);
 
-	for (var i = 0; i < 13; i++){
+	for (var i = 0; i < arr.length; i++){
 		console.log((i+1) + ". " + arr[i].getValue() + " of " + arr[i].getSuit());
 	}
 
 	AIhand.Build(arr);
 
-	for (var i = 0; i < 13; i++){
+	for (var i = 0; i < arr.length; i++){
 		var set = "{ ";
 		for (var j = 0; j < AIhand._hand[i]._set.Cards.length; j++){
 		 	set += AIhand._hand[i]._set.Cards[j].getValue() + " of " +
