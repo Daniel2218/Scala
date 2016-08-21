@@ -30,11 +30,12 @@ var AIhand = (function(AIcardClass){
 	}
 
 	function _compareCardsTo(index){
-		var orginals = my.isDuplicate(my._hand[index]); 
+		var orginal = my.isDuplicate(my._hand[index]); 
 
-		if(orginals == null || findInOrginals(orginals, i)){ 
+		
 
-			for (var i = 0; i < my._hand.length; i++) {			
+		for (var i = 0; i < my._hand.length; i++) {	
+			if(orginal == null || findInOrginals(orginal, i)){		
 				if(my._hand[index].isSetWith(my._hand[i])){
 					my._hand[index]._set.Num++;
 					my._hand[index]._set.Cards.push(my._hand[i]);	
@@ -43,39 +44,65 @@ var AIhand = (function(AIcardClass){
 					my._hand[index]._straight.Num++;
 					my._hand[index]._straight.Cards.push(my._hand[i]);		
 				}
-				
 			}
 		}
-		// FIX THIS
-		my._hand[index].setProb(checkCards, orginals);
+
+		split(orginal, my._hand[index]);
+		my._hand[index].setProb(checkCards, orginal);
 		my._hand[index].setStraightProb();
 		checkCards.push(my._hand[index]);
 	}
 
-	function findInOrginals(orginals, val){
-		for(var i = 0; i < orginals.length; i++){
-			var len = orginals[i]._set.Cards.length;
+	// splits a cards set and straight cards bettween its duplicate
+	function split(orginal, duplicate){
+		if(orginal != null){
+			// push everything to duplicate besides first card
+			var firstVal = orginal._set.Cards.shift();
+			var lenOfSet = orginal._set.Cards.length;
+			
+			// adds all cards from orginal to duplicate value
+			for(var j = 0; j < lenOfSet; j++){
+				duplicate._set.Cards.push(orginal._set.Cards[j]);
+			}
 
-			for(var j = 0; j < len; j++){
-				if(orginals[i]._set.Cards[j]._id == val){
-					return false;
-				}
+			// delete all cards from orginal
+			for(var j = 0; j < lenOfSet; j++){
+				orginal._set.Cards.pop();
+			}
+
+			// add back first card
+			orginal._set.Cards.push(firstVal);
+		}
+	}
+
+	// determines if card has already been added 
+	function findInOrginals(orginal, val){	
+		var lenOfSet = orginal._set.Cards.length;
+		var lenOfStraight = orginal._straight.Cards.length;
+
+		for(var j = 0; j < lenOfSet; j++){
+			if(orginal._set.Cards[j]._id == val){
+				return false;
 			}
 		}
+
+		for(var j = 0; j < lenOfStraight; j++){
+			if(orginal._straight.Cards[j]._id == val){
+				return false;
+			}
+		}
+		
 		return true;
 	}
 
+	// detemines if this card is a duplicate
 	my.isDuplicate = function(card){
-		var list = [];
 		for(var i = 0; i < checkCards.length; i++){
 			if(card.getValue() == checkCards[i].getValue() && card.getSuit() == checkCards[i].getSuit()){
-				list.push(checkCards[i]);
+				return checkCards[i];
 			}
 		}
-		if(list.length == 0){
-			return null;
-		} 
-		return list;
+		return null;
 	}
 
 	return my;
