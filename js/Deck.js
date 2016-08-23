@@ -14,11 +14,7 @@ var Deck = (function(){
 		for (i = 0; i < 2; i++){
 			for(j = 1; j <= 13; j++){
 				for (var k = 0; k < suits.length;k++){
-					if(j > 10){
-						my.Cards.push(new CardClass.Card(10,suits[k]));
-					} else {
-						my.Cards.push(new CardClass.Card(j,suits[k]));			
-					}	
+					my.Cards.push(new CardClass.Card(j,suits[k]));					
 				}
 			}
 		}
