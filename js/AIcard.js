@@ -54,10 +54,10 @@ var AIcardClass = (function(Deck){
 			 		return true;
 			 	} else {
 			 		var newCard = new AIcardClass.AIcard(otherCard.getValue(), otherCard.getSuit(), -1);
-			 		var isStraight = true;
+			 		var missingCards = [];
 
-			 		for (var i = 0; i < Math.abs(difference) - 1 && isStraight; i++) {
-				 		isStraight = (function() {		
+			 		for (var i = 0; i < Math.abs(difference) - 1; i++) {
+				 		var foundCard = (function() {		
 				 			
 				 			if(difference < 0){ 
 				 				newCard = newCard.Down();
@@ -73,8 +73,17 @@ var AIcardClass = (function(Deck){
 				 			}	 				
 					 		return false;
 					 	})();
+
+					 	if(!foundCard){
+					 		missingCards.push(newCard);
+					 	} 
 					 }
-			 		 return isStraight;	
+
+					 if(missingCards.length > 2){
+					 	return false;
+					 } else {
+					 	return true;						
+					 }
 			 	}
 			}
 			return false;

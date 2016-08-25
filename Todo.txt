@@ -1,1 +1,3 @@
-consider adding logic class
+add missing straight logic
+add cardsGone logic and update probablities
+touch ups / restructure ie: fix up isstraight method

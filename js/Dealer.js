@@ -7,15 +7,15 @@
 	var deck = Deck.Cards;
 	var arr = [];
 
-	// for (var i = 0; i < 13; i++){
-	// 	arr.push(deck.pop());
-	// }
+	for (var i = 0; i < 13; i++){
+		arr.push(deck.pop());
+	}
 
-	arr.push(
-		new AIcardClass.AIcard(4,"clubs"),
-		new AIcardClass.AIcard(2,"clubs")
-		//new AIcardClass.AIcard(9,"hearts"),
-	 //    new AIcardClass.AIcard(10,"diamonds"),
+	// arr.push(
+	// 	new AIcardClass.AIcard(5,"clubs"),
+	// 	new AIcardClass.AIcard(3,"clubs"),
+	// 	new AIcardClass.AIcard(1,"clubs"),
+	//     new AIcardClass.AIcard(2,"clubs")
 		// new AIcardClass.AIcard(8,"diamonds"),
 		// new AIcardClass.AIcard(9,"diamonds")
 	    // new AIcardClass.AIcard(9,"hearts")
@@ -25,7 +25,7 @@
 		// new AIcardClass.AIcard(9,"hearts"),
 		// new AIcardClass.AIcard(9,"diamonds"),
 		// new AIcardClass.AIcard(7,"clubs")
-	);
+	// );
 
 	// for (var i = 0; i < arr.length; i++){
 	// 	console.log((i+1) + ". " + arr[i].getValue() + " of " + arr[i].getSuit());
