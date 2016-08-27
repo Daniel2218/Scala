@@ -19,7 +19,7 @@ var AIhand = (function(AIcardClass){
 		}
 
 		this.Drop = function(){
-
+			
 		}
 	} 
 
@@ -30,18 +30,26 @@ var AIhand = (function(AIcardClass){
 	}
 
 	function _compareCardsTo(index){
-		var orginal = my.isDuplicate(my._hand[index]); 
-
-		
+		var orginal = my.isDuplicate(my._hand[index]); 	
 
 		for (var i = 0; i < my._hand.length; i++) {	
 			if(orginal == null || findInOrginals(orginal, i)){		
 				if(my._hand[index].isSetWith(my._hand[i])){
-					my._hand[index]._set.Num++;
 					my._hand[index]._set.Cards.push(my._hand[i]);	
 				}
 				if(my._hand[index].isStraightWith(my._hand[i], my._hand)){
-					my._hand[index]._straight.Num++;
+					my._hand[index]._straight.Cards.push(my._hand[i]);		
+				} 
+			}
+		}
+
+		if(my._hand[index]._straight.Cards.length > 2){
+			my._hand[index]._straight.IsComplete = true;
+		}
+
+		for (var i = 0; i < my._hand.length; i++) {	
+			if(orginal == null || findInOrginals(orginal, i)){		
+				if((!my._hand[index]._straight.IsComplete) && my._hand[index].isStraightWithGaps(my._hand[i], my._hand)){
 					my._hand[index]._straight.Cards.push(my._hand[i]);		
 				}
 			}

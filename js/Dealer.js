@@ -12,19 +12,19 @@
 	}
 
 	// arr.push(
-	// 	new AIcardClass.AIcard(5,"clubs"),
-	// 	new AIcardClass.AIcard(3,"clubs"),
-	// 	new AIcardClass.AIcard(1,"clubs"),
-	//     new AIcardClass.AIcard(2,"clubs")
-		// new AIcardClass.AIcard(8,"diamonds"),
-		// new AIcardClass.AIcard(9,"diamonds")
-	    // new AIcardClass.AIcard(9,"hearts")
-		// new AIcardClass.AIcard(1,"clubs"),
-		// new AIcardClass.AIcard(5,"hearts"),
-		// new AIcardClass.AIcard(10,"diamonds"),
-		// new AIcardClass.AIcard(9,"hearts"),
-		// new AIcardClass.AIcard(9,"diamonds"),
-		// new AIcardClass.AIcard(7,"clubs")
+	// 	new AIcardClass.AIcard(11,"diamonds"),
+	// 	new AIcardClass.AIcard(2,"spades"),
+	// 	new AIcardClass.AIcard(3,"diamonds"),
+	// 	new AIcardClass.AIcard(11,"hearts"),
+	//     new AIcardClass.AIcard(2,"hearts"),
+	// 	new AIcardClass.AIcard(5,"spades"),
+	// 	new AIcardClass.AIcard(9,"hearts"),
+	//     new AIcardClass.AIcard(12,"diamonds"),
+	// 	new AIcardClass.AIcard(6,"hearts"),
+	// 	new AIcardClass.AIcard(3,"spades"),
+	// 	new AIcardClass.AIcard(12,"clubs"),
+	// 	new AIcardClass.AIcard(2,"spades"),
+	// 	new AIcardClass.AIcard(10,"spades")
 	// );
 
 	// for (var i = 0; i < arr.length; i++){
@@ -49,7 +49,7 @@
 		straight += " }";
 
 		console.log((i+1) + ". " + AIhand._hand[i].getValue() + " of " + AIhand._hand[i].getSuit() 
-			+ " Prob of Set: " + AIhand._hand[i]._set.Prob * 100 + set + " Prob of straight: "
-			 + AIhand._hand[i]._straight.Prob * 100 + straight);
+			+ " Prob of Set: " + AIhand._hand[i]._set.Prob + set + " Prob of straight: "
+			 + AIhand._hand[i]._straight.Prob + straight);
 	}
 //})(Deck,AIhand);

@@ -1,3 +1,4 @@
-add missing straight logic
-add cardsGone logic and update probablities
-touch ups / restructure ie: fix up isstraight method
+1) add missing straight logic
+2) add ace logic
+3) add cardsGone logic and update probablities
+4) touch ups / restructure ie: fix up isstraight method

@@ -5,7 +5,11 @@ var Deck = (function(){
 	my.Cards = [];
 
 	my.CardsLeft = function (){
-		return my.Cards.length - 13;	
+		return my.Cards.length;	
+	}
+
+	my.CardsDropped = function(){
+
 	}
 
 	my.Build = function(){

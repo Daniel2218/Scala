@@ -13,17 +13,17 @@ var AIcardClass = (function(Deck){
 		
 		this._id = _id;
 
-		// test nameing convention
+		// test naming convention
 		this._set = {
 			Cards : [this],
-			Prob : 0,
-			Num : 0
+			Prob : 0
 		}
 
 		this._straight = {
 			Cards : [this],
 			Prob : 0,
-			Num : 0
+			MissingCards : [],
+			IsComplete : false
 		}	
 		
 		this.isSetWith = function(otherCard){
@@ -38,7 +38,49 @@ var AIcardClass = (function(Deck){
 			return false;
 		}
 
-		this.isStraightWith = function(otherCard, hand){	
+		this.isStraightWith = function(otherCard, hand){
+			if (this.getSuit() == otherCard.getSuit()){
+
+				// checks if a card of same value and suit has been added
+	 			for(var k = 0; k < this._straight.Cards.length; k++){
+ 					if (this._straight.Cards[k].equals(otherCard)){
+						return false;
+					}
+ 				}
+
+				var difference  = this.getValue() - otherCard.getValue();
+
+				if(Math.abs(difference) == 1){
+			 		return true;
+			 	} else {
+			 		var newCard = new AIcardClass.AIcard(otherCard.getValue(), otherCard.getSuit(), -1);
+			 		var isStraight = true;
+
+			 		for (var i = 0; i < Math.abs(difference) - 1 && isStraight; i++) {
+				 		isStraight = (function() {		
+				 			
+				 			if(difference < 0){ 
+				 				newCard = newCard.Down();
+				 			} else {
+				 				newCard = newCard.Up();
+				 			} 	
+
+			 				// checks to see if the hand contains this card
+				 			for (var j = 0; j < hand.length; j++) {
+								if(newCard.equals(hand[j])){
+									return true;
+				 				}
+				 			}	 				
+					 		return false;
+					 	})();
+					 }
+			 		 return isStraight;	
+			 	}
+			 	return false;
+			 }
+		}
+
+		this.isStraightWithGaps = function(otherCard, hand){	
 			if (this.getSuit() == otherCard.getSuit()){
 
 				// checks if a card of same value and suit has been added
@@ -75,13 +117,25 @@ var AIcardClass = (function(Deck){
 					 	})();
 
 					 	if(!foundCard){
-					 		missingCards.push(newCard);
+					 		var addIt = true;
+
+					 		// checks if the card has already been added to missing cards
+				 			for(var k = 0; k < this._straight.MissingCards.length; k++){
+			 					if (this._straight.MissingCards[k].equals(newCard)){
+									addIt = false;
+								}
+			 				}
+
+			 				if(addIt){
+						 		missingCards.push(newCard);
+						 	}
 					 	} 
 					 }
 
 					 if(missingCards.length > 2){
 					 	return false;
 					 } else {
+					 	this._straight.MissingCards = missingCards;
 					 	return true;						
 					 }
 			 	}
@@ -105,6 +159,7 @@ var AIcardClass = (function(Deck){
 			var lengthOfset = this._set.Cards.length;
 			var thisCard = this;
 
+			// determines the number of Cards added to the originals set 
 			var anyInHand = (function () {
 				if(originals != null){
 					for(var j = 0; j < checkCards.length; j++){
@@ -116,18 +171,24 @@ var AIcardClass = (function(Deck){
 				return 0;
 			})();
 			
-			for (var i = 0; i < (4 - lengthOfset); i++) {
+			for (var i = 0; i < (3 - lengthOfset); i++) {
 				result *= (8 - anyInHand - (lengthOfset + i)*2)/(my.CardsLeft() - i);
 			}
-			this._set.Prob = result;
+			this._set.Prob = result * 100;
 		}
 		this.setStraightProb = function(){
 			var result = 1;
-			var lengthOfstraight = this._straight.Cards.length;
-			for (var i = 0; i < (4 - lengthOfstraight); i++) {
-				result *= (4 - 2*this.ifAce())/(my.CardsLeft() - i);
+			var len = this._straight.MissingCards.length;
+			if(len == 0){
+				var lengthOfstraight = this._straight.Cards.length;
+				
+				for (var i = 0; i < (3 - lengthOfstraight); i++) {
+					result *= (4 - 2*this.ifAce())/(my.CardsLeft() - i);
+				}
+			} else {
+				result = (4 / my.CardsLeft()) * (2 / (my.CardsLeft() - 1));
 			}
-			this._straight.Prob = result;
+			this._straight.Prob = result * 100; 
 		}	
 		this.ifAce = function(){
 			var len = this._straight.Cards.length;
