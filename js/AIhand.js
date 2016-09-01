@@ -15,31 +15,31 @@ var AIhand = (function(AIcardClass){
 		this.Draw = function(card){
 			my._hand.push(card);
 
-			_compareCardsTo(my._hand.length - 1);	
+			_compareCardsTo(my._hand.length - 1);
 		}
 
 		this.Drop = function(){
-			
+
 		}
-	} 
+	}
 
 	function _onHand(_hand){
-		for (var j = 0; j < _hand.length; j++) {	
+		for (var j = 0; j < _hand.length; j++) {
 			_compareCardsTo(j);
 		}
 	}
 
 	function _compareCardsTo(index){
-		var orginal = my.isDuplicate(my._hand[index]); 	
+		var orginal = my.isDuplicate(my._hand[index]);
 
-		for (var i = 0; i < my._hand.length; i++) {	
-			if(orginal == null || findInOrginals(orginal, i)){		
+		for (var i = 0; i < my._hand.length; i++) {
+			if(orginal == null || findInOrginals(orginal, i)){
 				if(my._hand[index].isSetWith(my._hand[i])){
-					my._hand[index]._set.Cards.push(my._hand[i]);	
+					my._hand[index]._set.Cards.push(my._hand[i]);
 				}
 				if(my._hand[index].isStraightWith(my._hand[i], my._hand)){
-					my._hand[index]._straight.Cards.push(my._hand[i]);		
-				} 
+					my._hand[index]._straight.Cards.push(my._hand[i]);
+				}
 			}
 		}
 
@@ -47,10 +47,11 @@ var AIhand = (function(AIcardClass){
 			my._hand[index]._straight.IsComplete = true;
 		}
 
-		for (var i = 0; i < my._hand.length; i++) {	
-			if(orginal == null || findInOrginals(orginal, i)){		
+		// adds straight with gaps
+		for (var i = 0; i < my._hand.length; i++) {
+			if(orginal == null || findInOrginals(orginal, i)){
 				if((!my._hand[index]._straight.IsComplete) && my._hand[index].isStraightWithGaps(my._hand[i], my._hand)){
-					my._hand[index]._straight.Cards.push(my._hand[i]);		
+					my._hand[index]._straight.Cards.push(my._hand[i]);
 				}
 			}
 		}
@@ -67,7 +68,7 @@ var AIhand = (function(AIcardClass){
 			// push everything to duplicate besides first card
 			var firstVal = orginal._set.Cards.shift();
 			var lenOfSet = orginal._set.Cards.length;
-			
+
 			// adds all cards from orginal to duplicate value
 			for(var j = 0; j < lenOfSet; j++){
 				duplicate._set.Cards.push(orginal._set.Cards[j]);
@@ -83,8 +84,8 @@ var AIhand = (function(AIcardClass){
 		}
 	}
 
-	// determines if card has already been added 
-	function findInOrginals(orginal, val){	
+	// determines if card has already been added
+	function findInOrginals(orginal, val){
 		var lenOfSet = orginal._set.Cards.length;
 		var lenOfStraight = orginal._straight.Cards.length;
 
@@ -99,7 +100,7 @@ var AIhand = (function(AIcardClass){
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
