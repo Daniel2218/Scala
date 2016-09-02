@@ -15,10 +15,10 @@ var AceClass = (function(CardClass){
 		this._value1 = 1;
 		this._value2 = 11;
 
-		CardClass.Card.call(this, _value1, _suit);
+		CardClass.Card.call(this, this._value1, _suit);
 
 		this.getHighValue = function(){
-			return _value2;
+			return this._value2;
 		}
 	}
 

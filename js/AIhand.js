@@ -1,26 +1,30 @@
 var AIhand = (function(AIcardClass){
 
-	var my = {};
+		var my = {};
     my._hand = [];
     var _worstCard;
    	var checkCards = [];
 
     my.Build = function(arr){
-		for (var i = 0; i < arr.length; i++){
-			my._hand.push(new AIcardClass.AIcard(arr[i].getValue(),arr[i].getSuit(),i));
-		}
+			for (var i = 0; i < arr.length; i++){
+				if(arr[i].getValue() == 1){
+			 		my._hand.push(new AIaceClass.AIcard(arr[i].getSuit()))
+				} else {
+			  	my._hand.push(new AIcardClass.AIcard(arr[i].getValue(),arr[i].getSuit(),i));
+				}
+	    }
 
-		_onHand(my._hand);
+			_onHand(my._hand);
 
-		this.Draw = function(card){
-			my._hand.push(card);
+			this.Draw = function(card){
+				my._hand.push(card);
 
-			_compareCardsTo(my._hand.length - 1);
-		}
+				_compareCardsTo(my._hand.length - 1);
+			}
 
-		this.Drop = function(){
+			this.Drop = function(){
 
-		}
+			}
 	}
 
 	function _onHand(_hand){

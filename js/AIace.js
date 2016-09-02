@@ -8,11 +8,11 @@ var AIaceClass = (function(AIcardClass){
 		}
 	}
 
-	var _parentCard = my.Card;
+	var _parentCard = my.AIcard;
 
-	my.card = function(_suit, _id) {
+	my.AIcard = function(_suit, _id) {
+		_parentCard.call(this, 1, _suit, _id);
 
-		this._set = _parentCard._set;
 		this._lowStraight = _parentCard._straight;
 
 		this.highStraight = {
@@ -21,5 +21,10 @@ var AIaceClass = (function(AIcardClass){
 			MissingCards : [],
 			IsComplete : false
 		}
+
+		this.getHighValue =  11;
+		this.getLowValue = this.getValue();
 	}
+
+	return my;
 })(AIcardClass);

@@ -2,3 +2,7 @@
 2) add ace logic
 3) add cardsGone logic and update probablities
 4) touch ups / restructure ie: fix up isstraight method
+
+Questions
+
+Do we really need aicard and card or just aicard

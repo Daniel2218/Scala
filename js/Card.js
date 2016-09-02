@@ -19,4 +19,3 @@ var CardClass = (function(){
 
 	return my;
 })();
-

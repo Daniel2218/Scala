@@ -5,7 +5,7 @@ var Deck = (function(){
 	my.Cards = [];
 
 	my.CardsLeft = function (){
-		return my.Cards.length;	
+		return my.Cards.length;
 	}
 
 	my.CardsDropped = function(){
@@ -18,11 +18,15 @@ var Deck = (function(){
 		for (i = 0; i < 2; i++){
 			for(j = 1; j <= 13; j++){
 				for (var k = 0; k < suits.length;k++){
-					my.Cards.push(new CardClass.Card(j,suits[k]));					
+					if(j == 1){
+						my.Cards.push(new AceClass.Card(suits[k]));
+					} else {
+						my.Cards.push(new CardClass.Card(j,suits[k]));
+					}
 				}
 			}
 		}
-				
+
 		_shuffle(my.Cards);
 	}
 
@@ -43,7 +47,7 @@ var Deck = (function(){
 	  }
 	}
 
-	
+
 
 	return my;
 })();
